@@ -1,0 +1,94 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+<title>Insert title here</title>
+<script type="text/javascript" src="js/jquery.js"></script>
+<link rel="stylesheet" type="text/css" href="css/login.css" />
+<script type="text/javascript" th:inline="javascript">
+/*<![CDATA[*/
+	$(function() {
+		$("#password").focus(function() {
+			$("#left_hand").animate({
+				left : "150",
+				top : " -38"
+			}, {
+				step : function() {
+					if (parseInt($("#left_hand").css("left")) > 140) {
+						$("#left_hand").attr("class", "left_hand");
+					}
+				}
+			}, 2000);
+			$("#right_hand").animate({
+				right : "-64",
+				top : "-38px"
+			}, {
+				step : function() {
+					if (parseInt($("#right_hand").css("right")) > -70) {
+						$("#right_hand").attr("class", "right_hand");
+					}
+				}
+			}, 2000);
+		});
+		$("#password").blur(function() {
+			$("#left_hand").attr("class", "initial_left_hand");
+			$("#left_hand").attr("style", "left:100px;top:-12px;");
+			$("#right_hand").attr("class", "initial_right_hand");
+			$("#right_hand").attr("style", "right:-112px;top:-12px");
+		});
+	});
+	function generatePictures() {
+		var username = $("#username").val();
+		var password = $("#password").val();
+		$.ajax({
+			url : 'signIn',
+			type : 'post',
+			cache : false,
+			dataType : "text",
+			data : {
+				"username" : username,
+				"password" : password
+			},
+			success : function(data) {
+				window.location.href = "/index";
+			},
+			error : function(data) {
+				alert(data.responseText);
+			}
+		});
+	}
+	/*]]>*/
+</script>
+</head>
+<body>
+	<div class="top_div"></div>
+	<div style="width: 400px; height: 200px; margin: auto auto; background: #ffffff; text-align: center; margin-top: -100px; border: 1px solid #e7e7e7">
+		<div style="width: 165px; height: 96px; position: absolute">
+			<div class="tou"></div>
+			<div id="left_hand" class="initial_left_hand"></div>
+			<div id="right_hand" class="initial_right_hand"></div>
+		</div>
+		<p style="padding: 30px 0px 10px 0px; position: relative;">
+			<span class="u_logo"></span> 
+			<input class="ipt" name="username" id="username" type="text" placeholder="请输入用户名" />
+		</p>
+		<p style="position: relative;">
+			<span class="p_logo"></span>
+			<input id="password" class="ipt" name="password" type="password" placeholder="请输入密码" onkeydown="if(event.keyCode==13) generatePictures();" />
+		</p>
+
+		<div style="height: 50px; line-height: 20px; margin-top: 20px;">
+			<p style="margin: 0px 35px 20px 45px;">
+				<span style="float: center">
+					<button type="submit" class="button big blue" onclick="generatePictures()">登录</button>
+				</span>
+			</p>
+		</div>
+
+	</div>
+
+	<div style="position: fixed; bottom: 0px; text-align: center; width: 100%;">
+		Copyright ©2018 
+		<a style="margin-left: 10px; color: #000000; text-decoration: underline" href="http://www.kfwlkjwx.com">http://www.kfwlkjwx.com</a>
+	</div>
+</body>
+</html>
