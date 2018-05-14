@@ -44,6 +44,7 @@ public class BaseEntity implements Serializable, Cloneable {
 	 * 操作版本(乐观锁,用于并发控制)
 	 */
 	@Setter
+	@Version
 	protected Integer version;
 
 	/**
@@ -71,7 +72,7 @@ public class BaseEntity implements Serializable, Cloneable {
 	 * 状态可用 0：可用 1：已删除
 	 */
 	@Setter
-	protected Integer isDelete;
+	protected Integer isDelete = 0;
 
 	public BaseEntity() {
 		super();

@@ -47,9 +47,11 @@ public class AuditableListener {
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
 				.getRequest();
 		String loginName = (String) request.getSession().getAttribute(LoginParam.LOGIN_NAME);
-		if (entity.getCreateTime() == null && entity.getCreateUser() == null) {
-			entity.setCreateUser(loginName);
+		if (entity.getCreateTime() == null) {
 			entity.setCreateTime(new Date());
+		}
+		if (entity.getCreateUser() == null) {
+			entity.setCreateUser(loginName);
 		}
 		entity.setUpdateUser(loginName);
 		entity.setUpdateTime(new Date());
