@@ -12,7 +12,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.own.bb.common.LoginParam;
-import com.own.bb.common.entity.AduitBaseEntity;
+import com.own.bb.common.entity.BaseEntity;
 
 import lombok.extern.java.Log;
 
@@ -40,10 +40,10 @@ public class AuditableListener {
 		if (object == null)
 			return;
 
-		if (!(object instanceof AduitBaseEntity))
+		if (!(object instanceof BaseEntity))
 			return;
 
-		AduitBaseEntity entity = (AduitBaseEntity) object;
+		BaseEntity entity = (BaseEntity) object;
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
 				.getRequest();
 		String loginName = (String) request.getSession().getAttribute(LoginParam.LOGIN_NAME);
